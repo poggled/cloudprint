@@ -26,7 +26,7 @@ module CloudPrint
         content: options[:content],
         contentType: options[:content_type]
       }
-      params[:ticket] = options[:ticket] if options[:ticket] && options[:ticket] != ''
+      params[:ticket] = options[:ticket].to_json if options[:ticket] && options[:ticket] != ''
       response = client.connection.send(method, '/submit', params) || {}
       return nil if response.nil? || response["job"].nil?
       client.print_jobs.new_from_response response["job"]
